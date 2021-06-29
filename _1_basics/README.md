@@ -14,20 +14,6 @@ ___
 An assertion is a function that check if a given case is True. 
 This function will **raise an exception** if a case is **False**.
 
-### SUT // UUT
-System under test (SUT) or Unit Under Test (UUT) : defines a scope, a program or a part of it that acts like a state machine.
-If not, it means that testing would be very hard. After all, testing test a *state*. 
-If we look at function level, the state could be the input and the output. But at module level, the state could be a complex data structure that is being modified by different methods.
-When we write a test, we should always ask ourselves before : 
-1. what is my SUT
-2. what is the state cases that I expect and what are those that I do NOT expect (state table)
-3. Do I need any resource before testing my SUT
-4. Do I need to clean up some resources that my test created (mock, files...etc)
-
-### Test discovery
-
-The way that a library or a framework (like pytest that we are using in the example), 
-
 ### Unit Test
 When we look at the first time on a unit test, we could think of it as a simple function that will raise an exception. 
 If it is not raising any exception, the test will be considered as passed (OK)
@@ -43,6 +29,24 @@ A Unit Test is made of 4 components.
 4. **Cleanup** : set of method that will clean up what needed (open connections, test classes instance...)
 
 During this session we will focus on **Act** and **Assert** only.
+
+
+
+### SUT // UUT
+System under test (SUT) or Unit Under Test (UUT) : defines a scope, a program or a part of it that acts like a state machine.
+If not, it means that testing would be very hard. After all, testing test a *state*. 
+If we look at function level, the state could be the input and the output. But at module level, the state could be a complex data structure that is being modified by different methods.
+When we write a test, we should always ask ourselves before : 
+1. what is my SUT
+2. what is the state cases that I expect and what are those that I do NOT expect (state table)
+3. Do I need any resource before testing my SUT
+4. Do I need to clean up some resources that my test created (mock, files...etc)
+
+### Test discovery
+
+The way that a library or a framework (like pytest that we are using in the example), 
+
+
 
 ## Practice
 
