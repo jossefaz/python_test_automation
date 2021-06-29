@@ -177,7 +177,12 @@ So keep in mind if you use the instance selector - the self keyword at class lev
 
 Create a test that will check if a given function will raise a ValueError in case of negative integer input.
 
+## Bonus : Pycharm integrated pytest
 
+---
+
+By default, all test cases are discovered by Pycharm in the `unittest` fashion (i.e only if you write a class that inherits from the unittest.TestCase).
+But there is a possibility to change this behaviour. Just go through : `Settings | Tools | Python Integrated tools | Testing` and change to your favorite framwork (pytest in our case)
 
 
 
