@@ -14,8 +14,8 @@ ___
 An assertion is a function that check if a given case is True. 
 This function will **raise an exception** if a case is **False**.
 
-### SUT 
-System under test (SUT) : defines a scope, a program or a part of it that acts like a state machine.
+### SUT // UUT
+System under test (SUT) or Unit Under Test (UUT) : defines a scope, a program or a part of it that acts like a state machine.
 If not, it means that testing would be very hard. After all, testing test a *state*. 
 If we look at function level, the state could be the input and the output. But at module level, the state could be a complex data structure that is being modified by different methods.
 When we write a test, we should always ask ourselves before : 
@@ -71,8 +71,84 @@ def test_add_str():
     assert add("hello ", "world") == "hello world"
 ```
 
+### Run the test
+
+---
+
+Run the command `pytest` from terminal (you might have to `pip install pytest` before if your terminal does not recognize the comman).
+
+### Understanding the output 
+
+---
+
+There is 5 possible exit code for the `pytest` command :
+
+**Exit code 0**
+All tests were collected and passed successfully
+
+**Exit code 1**
+Tests were collected and run but some of the tests failed
+
+**Exit code 2**
+Test execution was interrupted by the user
+
+**Exit code 3**
+Internal error happened while executing tests
+
+**Exit code 4**
+pytest command line usage error
+
+**Exit code 5**
+No tests were collected
+
+Each test will finnish by a letter in the `stdout`, here are the possibilities :
+
+ - F - failed
+
+- E - error
+
+- s - skipped
+
+- x - xfailed
+
+- X - xpassed
+
+- p - passed
+
+- P - passed with output
+
+For further flags of the `pytest` command [Read the docs !](https://docs.pytest.org/en/6.2.x/reference.html#command-line-flags)
+
+Output example : we can see the `F` for "Failing" test and `E` for error on the traceback.
+
+```text
+collected 4 items                                                                                                                                                           
+
+basics/tests/test_main.py ..F.                                                                                                                                        [100%]
+
+================================================================================= FAILURES ==================================================================================
+___________________________________________________________________________ TestMain.test_add_num ___________________________________________________________________________
+
+self = <basics.tests.test_main.TestMain object at 0x7f23a0f4afd0>
+
+    def test_add_num(self):
+>       raise
+E       RuntimeError: No active exception to reraise
+
+basics/tests/test_main.py:11: RuntimeError
+========================================================================== short test summary info ==========================================================================
+FAILED basics/tests/test_main.py::TestMain::test_add_num - RuntimeError: No active exception to reraise
+======================================================================== 1 failed, 3 passed in 0.06s ========================================================================
+
+
+```
+
+
+### Run Test classes
+
+---
 We can also define a class that includes a group of tests. This could be interesting for testing logic at class level **BUT** always keep in mind that 
-for each methods begining by the discovery pattern ("test_" by default), pytest will create a new instance of the TestClass (by the way this is the discovery pattern for classes "Test")
+for each method beginning by the discovery pattern ("test_" by default), pytest will create a new instance of the TestClass (by the way this is the discovery pattern for classes "Test")
 
 ```python
 class TestMain:

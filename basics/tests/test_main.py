@@ -8,6 +8,7 @@ def test_add_str():
 
 class TestMain:
     def test_add_num(self):
+        raise
         assert add(1, 2) == 3
 
     def test_add_str(self):
