@@ -44,8 +44,11 @@ When we write a test, we should always ask ourselves before :
 
 ### Test discovery
 
-The way that a library or a framework (like pytest that we are using in the example), 
-
+The way that a library or a framework (like pytest that we are using in the example), will check for test cases candidates to run.
+For example with the built-in library (`unittest`) the test discovery is based on inheritance (creating a class that inherits from the `unittest.TestCase`). 
+This is a simple "subscribing" way, that allows `unittest` module to run all classes that contain tests.
+With pytest, it works on naming conventions ("discovery patterns"). By default is `test_*` for functions and modules names, and `Test*`
+for classes names. But we can change this in the configuration.
 
 
 ## Practice
