@@ -71,6 +71,30 @@ def test_add_str():
     assert add("hello ", "world") == "hello world"
 ```
 
+We can also define a class that includes a group of tests. This could be interesting for testing logic at class level **BUT** always keep in mind that 
+for each methods begining by the discovery pattern ("test_" by default), pytest will create a new instance of the TestClass (by the way this is the discovery pattern for classes "Test")
+
+```python
+class TestMain:
+    def test_add_num(self):
+        assert add(1, 2) == 3
+
+    def test_add_str(self):
+        assert add("hello ", "world") == "hello world"
+```
+
+Output : 
+```python
+self = <basics.tests.test_main.TestMain object at 0x7f491fcba880>
+self = <basics.tests.test_main.TestMain object at 0x7f491fcba9d0>
+```
+
+You notice that the TestMain instance have two different address, one for each method (test case), means that a new instance of the test class is created on each test case. 
+
+So keep in mind if you use the instance selector - the self keyword at class level - ...it would be restored to initial state on each case in order to keep isolation from one test to another
+
+
+
 ## Exercise 
 
 ---
