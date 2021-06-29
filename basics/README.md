@@ -175,7 +175,7 @@ So keep in mind if you use the instance selector - the self keyword at class lev
 
 ---
 
-Create a test that will check if a given function will raise a ValueError in case of negative integer input.
+Create a test that will check if a given function will compute fibonacci nth number
 
 ## Bonus : Pycharm integrated pytest
 
