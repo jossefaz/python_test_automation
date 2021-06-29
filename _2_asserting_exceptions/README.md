@@ -8,11 +8,11 @@ If you recall from the last session (where we define what an assertion is), then
 
 if an assertion is a function that will raise an exception, 
 
-and a test is considered as **"Fail"** on every exception that could occurs both on the **Act** and **Assertion** steps (please refere to the `basics` for those two terms)
+And a test is considered as **"Fail"** on every exception that could occurs both on the **Act** and **Assertion** steps (please refere to the `basics` for those two terms)
 
 then how can we test an exception that occurs explicitly in the **Act** ? 
 
-For exemple if I want to try that an input is negative and I want to raise a ValueError if not :
+For example if I want to try that an input is negative and I want to raise a ValueError if not :
 
 ```python
 def enter_the_pub(age:int) -> None :
@@ -58,7 +58,7 @@ class RaisesContext(Generic[_E]):
 
     def __enter__(self) -> _pytest._code.ExceptionInfo[_E]:
         self.excinfo = _pytest._code.ExceptionInfo.for_later()
-        return self.excinfo
+        return self.excinfo #<=== Return an execution information object !
 
     def __exit__(
         self,
@@ -72,5 +72,45 @@ class RaisesContext(Generic[_E]):
         assert self.excinfo is not None # <=== if there is no exception after the context execution it fails
         if not issubclass(exc_type, self.expected_exception):
             return False # <=== if the raised exception is not the expected exception it will fail too !
+        # Cast to narrow the exception type now that it's verified.
+        exc_info = cast(Tuple[Type[_E], _E, TracebackType], (exc_type, exc_val, exc_tb))
+        self.excinfo.fill_unfilled(exc_info)
+        if self.match_expr is not None:
+            self.excinfo.match(self.match_expr) #<=== Check the match message error
+        return True
 
 ```
+
+### Handle more than the exception type
+
+Sometimes we want to check further and not only the type of the exception.
+We saw in the **Deep dive** that the return type of the `__enter__` method is an `excinfo` object. This object has some properties that we can use for example to check the error message that our function return :
+
+```python
+import pytest
+
+def test_cannot_enter_the_pub():
+    with pytest.raises(ValueError) as exc_info:
+        enter_the_pub(15)
+    # call the __str__ function of the exception object and assert its value
+    assert str(exc_info.value) == "Consuming Alcohol is not permitted under 18 years old"
+
+```
+
+But actually if we take a look at the `__init__` signature of `RaisesContext` class, we notice the `match_expression` (which come from the `match` parameter of `pytest.raises`), this is a message that we can provid as the expected message from the exception
+
+```python
+import pytest
+
+def test_cannot_enter_the_pub():
+    
+    with pytest.raises(ValueError, match="Consuming Alcohol is not permitted under 18 years old") as exc_info:
+        enter_the_pub(15)
+
+```
+
+### Exercise
+
+---
+
+Write a test that will check for a missing argument and output a custom message for number of positional missing argument and keyword missing arguments
