@@ -19,7 +19,7 @@ A Unit Test is made of 4 components.
 
 1. **Arrange** : set of methods that helps to prepare the test (mocking, setUp, input data...)
 2.  **Act** : function that will raise an exception. If it is not raising any exception, the test will be considered as passed (OK)
-3. **Assert** : The statement that will raise the exception in the Act function
+3. **Assert** : The statement that will raise the exception in the Act function (but any other exception that is raised )
 4. **Cleanup** : set of method that will clean up what needed (open connections, test classes instance...)
 
 During this session we will focus on **Act** and **Assert** only.
