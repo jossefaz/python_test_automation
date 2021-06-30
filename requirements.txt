@@ -1,1 +1,14 @@
-pytest
+pytest~=6.2.4
+py~=1.10.0
+colorama~=0.4.3
+pip~=20.1.1
+keyring~=21.3.0
+attrs~=21.2.0
+toml~=0.10.2
+wcwidth~=0.2.5
+pluggy~=0.13.1
+iniconfig~=1.1.1
+pexpect~=4.8.0
+pyparsing~=2.4.7
+setuptools~=49.3.1
+requests~=2.23.0
