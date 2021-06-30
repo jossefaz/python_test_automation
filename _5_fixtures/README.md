@@ -112,7 +112,8 @@ Even though you can define and use `@pytest.fixture` in every part of the code, 
 ---
 
 Since a fixture is a simple function, we can return another function from it which could be a factory that will generate random data for us.
-We will focus on Mutants (like X-MEN). 
+
+In this exercise, our Domain will be Mutants (like X-MEN). 
 A mutant has 3 properties :
     1- power (Could be one of :Ice, Fire, Psycho, Self_recovery)
     2- strength (Could be one of :Weak,Middle,Strong,God)
