@@ -71,7 +71,7 @@ def test_retrieve_users(db_connection):
 
 ---
 
-Pytest comes with a set of very useful (built-in fixtures)[https://docs.pytest.org/en/6.2.x/builtin.html#pytest-api-and-builtin-fixtures] . 
+Pytest comes with a set of very useful [built-in fixtures](ttps://docs.pytest.org/en/6.2.x/builtin.html#pytest-api-and-builtin-fixtures) . 
 Lets have a look on the `tmpdir` fixture
 
 Lets define a simple function that write input text in a file :
