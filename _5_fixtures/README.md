@@ -98,3 +98,34 @@ def test_write_text_to_file(tmpdir):
     with open(file_path, 'r') as fp:
         assert fp.readline() == text_to_write
 ```
+
+## Conftest.py : Where all fixtrues should be defined
+
+--- 
+
+According to the [docs](https://docs.pytest.org/en/6.2.x/fixture.html#conftest-py-sharing-fixtures-across-multiple-files), Pytest will lookup for fixtures in a single file called `conftest.py`.
+Even though you can define and use `@pytest.fixture` in every part of the code, the best way to share fixtures among all the test code base is to write them all in the `conftest.py` file.
+
+
+## Exercise : Create a fixture factory
+
+---
+
+Since a fixture is a simple function, we can return another function from it which could be a factory that will generate random data for us.
+We will focus on Mutants (like X-MEN). 
+A mutant has 3 properties :
+    1- power (Could be one of :Ice, Fire, Psycho, Self_recovery)
+    2- strength (Could be one of :Weak,Middle,Strong,God)
+    3- family (Could be one of :Beast,Mind,Daemons,Angels")
+
+We have this function : 
+```python
+def fight_mutants(army_of_mutants: List[Mutant]):
+    return max(army_of_mutants, key=lambda m: m.strength)
+```
+Write a test (and other stuff also like the Mutant class), that will generate a great X-Men army (given the nth number of mutants) and will test the `fight_mutants` function (asserting that the last survivor is indeed a mutant by checking its properties)
+This test should be run with a fixture that will generate the army for you (a different army at each test running).
+
+
+
+

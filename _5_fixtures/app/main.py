@@ -1,4 +1,7 @@
+import enum
+from dataclasses import dataclass
 from pathlib import Path
+from typing import List
 
 
 def retrieve_users(db_connection):
@@ -9,4 +12,13 @@ def retrieve_users(db_connection):
 
 def save_text_in_file(text: str, file_path: str):
     with open(file_path, "w+") as fp:
-            fp.write(text)
+        fp.write(text)
+
+class DummyDb:
+    def __init__(self):
+        self.connected = False
+
+    def connect(self):
+        self.connected = True
+
+
