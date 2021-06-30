@@ -115,9 +115,9 @@ Since a fixture is a simple function, we can return another function from it whi
 
 In this exercise, our Domain will be Mutants (like X-MEN). 
 A mutant has 3 properties :
-    1- power (Could be one of :Ice, Fire, Psycho, Self_recovery)
-    2- strength (Could be one of :Weak,Middle,Strong,God)
-    3- family (Could be one of :Beast,Mind,Daemons,Angels")
+1.  **power** (Could be one of :Ice, Fire, Psycho, Self_recovery)
+2. **strength** (Could be one of :Weak,Middle,Strong,God)
+3. **family** (Could be one of :Beast,Mind,Daemons,Angels")
 
 We have this function : 
 ```python
