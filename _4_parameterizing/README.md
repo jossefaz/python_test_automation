@@ -36,4 +36,22 @@ def test_login(username, password, expected_status_code):
     assert log_in(username,password) == expected_status_code
 ```
 
-We first define a string with name of each parameter separated by comma, then we open an array
+We first define a string with name of each parameter separated by comma, then we open an array of tuples. 
+Each elements of each tuples represent an argument which will be pass at the exact same position to the test function.
+
+Here we have defined three parameters. the two first will be passed to our **act** function and the third one will be used to assert that the return code of the function is the expected one.
+
+OUTPUT :
+
+```text
+collected 3 items                                                                                                                                                                                           
+
+_4_parameterizing/tests/test_main.py::test_login[john-supersecret-200] PASSED                                                                                                                         [ 33%]
+_4_parameterizing/tests/test_main.py::test_login[john-wrongpassword-401] PASSED                                                                                                                       [ 66%]
+_4_parameterizing/tests/test_main.py::test_login[wronguser-supersecret-401] PASSED                                                                                                                    [100%]
+
+============= 3 passed in 0.01s ==========
+```
+Even though we had only one test in our testsuite, three tests are being actually run, on for each parametrize tuple.
+Notice that the `stdout` include the different params that were passed to the test function.
+
