@@ -21,7 +21,7 @@ If it is not raising any exception, the test will be considered as passed (OK)
 Even if it could be true. This statement is **largely incomplete**.
 
 
-A Unit Test is made of 4 components.
+A Unit Test is made of 4 components/steps.
 
 1. **Arrange** : set of methods that helps to prepare the test (mocking, setUp, input data...)
 2.  **Act** : Action that will change the state of the SUT, making the actual behavior. If it raises any **unhandled** exception, this will cause the test to fail.

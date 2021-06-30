@@ -9,6 +9,8 @@ This machine is actually a test fixture.
 In the software field, a text fixture could be every kind of tool (db connections, cache object, draft folder...) that we need for our test suite in order to get the expected behaviour.
 If a function needs to save a file in a directory, then, instead of creating this directory inside the test function, a fixture that will create and remove this temporary folder could be a great solution.
 
+So if we recall the 4 steps of a test (from the **basics** section), we now understand that fixture is actually relevant for the **Arrange** and **Cleanup** steps (it kind of "replace" the ***setUp*** and ***tearDown*** methods from the ***unittest*** module)
+
 ## Pytest way : dependency injection 
 
 ---
@@ -66,3 +68,33 @@ def test_retrieve_users(db_connection):
 ```
 
 ## Built in fixture
+
+---
+
+Pytest comes with a set of very useful (built-in fixtures)[https://docs.pytest.org/en/6.2.x/builtin.html#pytest-api-and-builtin-fixtures]. 
+Lets have a look on the `tmpdir` fixture
+
+Lets define a simple function that write input text in a file :
+
+```python
+def save_text_in_file(text: str, file_path: str):
+    with open(file_path, "w+") as fp:
+            fp.write(text)
+```
+We can use the `tmpdir` fixture here as a draft directory :
+
+
+```python
+import os
+from ..app.main import save_text_in_file
+
+#Here tmpdi is a name of a builtin fixture and will be replaced by pytest automaticaly by the path of a temp directory
+def test_write_text_to_file(tmpdir):
+    file_name = "dummy_file.txt"
+    file_path = os.path.join(tmpdir, file_name)
+    text_to_write = "Hello World"
+    
+    save_text_in_file(text_to_write, file_path)
+    with open(file_path, 'r') as fp:
+        assert fp.readline() == text_to_write
+```
