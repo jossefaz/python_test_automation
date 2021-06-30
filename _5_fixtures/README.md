@@ -128,5 +128,22 @@ Write a test (and other stuff also like the Mutant class), that will generate a 
 This test should be run with a fixture that will generate the army for you (a different army at each test running).
 
 
+## Bonus : Parametrize a fixture using the indirect and request objects
 
+---
+
+If you did the exercise thaen you probably return a function from a fixture. How can we run this returned function with differents parameters from the paramtrize mark ?
+When using the `@pytest.mark.parametrize` we can add an `indirect` attribute to it, meaning that the exact parameter is actually an argument to pass to a fixture
+
+```python
+
+@pytest.mark.paramtrize("my_fixture, another_param", [
+    ('argument_for_the_fixture', 'another_argument_passed_to_the_function'),
+    ('argument_for_the_fixture2', 'another_argument_passed_to_the_function2')
+], indirect=["my_fixture"])
+def test_fixture_param(my_fixture, another_param):
+    # the my_fixture will actually contains the fixture output with the argument provided in the params array (here 'argument_for_the_fixture' and 'argument_for_the_fixture2' at the second run) 
+    a_fixture_return = my_fixture
+    
+```
 

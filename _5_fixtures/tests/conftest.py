@@ -12,7 +12,6 @@ def db_connection():
     return conn
 
 
-
 # Solution for the exercise : DONT LOOK AT IT IF YOU DID NOT TRY BY YOUR OWN BEFORE !!!
 
 @pytest.fixture
