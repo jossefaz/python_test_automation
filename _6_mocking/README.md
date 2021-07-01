@@ -108,6 +108,17 @@ def test_check_credentials_2(monkeypatch, payload, expected_status_code):
 
 ```
 
+## The Mocking trap : making the test not testing anything !
+
+---
+
+In order to avoid this effect, we should apply two principles : 
+1. Write the test BEFORE the code (ideally in a TDD way)
+2. Define the behaviour under test : and DO NOT MOCK anything that is a part of this behaviour. 
+
+In our example, the **request is NOT a part** of the behaviour (even if it looks like a part of it because it will define the return code). The behaviour under test is only the return statement of the login route.
+
+
 ## More on Mock
 
 ---
@@ -154,19 +165,6 @@ def test_complete_todo(mocked_get_todo):
 The advantage of using the `moc.Mock` class from the `unittest` module over the `monkeypatch` fixture, is the access to a bunch of useful method to assert that the **patched** function was called a number of time.
 For example :
 
-
-
-## The Mocking trap : making the test not testing anything !
-
----
-
-In order to avoid this effect, we should apply two principles : 
-1. Write the test BEFORE the code (ideally in a TDD way)
-2. Define the behaviour under test : and DO NOT MOCK anything that is a part of this behaviour. 
-
-In our example, the **request is NOT a part** of the behaviour (even if it looks like a part of it because it will define the return code). The behaviour under test is only the return statement of the login route.
-
-
 ```python
 
 from unittest import mock
@@ -180,4 +178,13 @@ def test_complete_todo_called_once(mocked_get_todo):
     complete_todo()
     mocked_get_todo.assert_called_once()
 ```
+
 All the `assert_called` method could be found [HERE](https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock.assert_called)
+
+## Mock side_effect method
+
+
+
+
+
+
