@@ -25,7 +25,7 @@ def test_check_credentials(mock_check_user_credentials, payload, expected_status
     returned_status_code = login(payload)
     assert returned_status_code == expected_status_code
 
-@pytest.mark.webtest
+@pytest.mark.leela
 @pytest.mark.parametrize(
     "payload, expected_status_code",
     [
@@ -39,7 +39,7 @@ def test_check_credentials_2(monkeypatch, payload, expected_status_code):
     assert returned_status_code == expected_status_code
 
 
-@pytest.mark.webtest
+@pytest.mark.leela
 @mock.patch("_7_build_a_test_plateform.app.main.get_todo_from_rest")
 def test_complete_todo(mocked_get_todo):
     mocked_get_todo.return_value = mock.Mock(name="request_response",
