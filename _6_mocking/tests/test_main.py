@@ -44,3 +44,4 @@ def test_complete_todo(mocked_get_todo):
     mocked_get_todo.return_value = mock.Mock(name="request_response",
                                              **{"status_code": 200, "json.return_value": {"id": 1, 'completed': False}})
     assert complete_todo() == False
+    mocked_get_todo.assert_called_once()

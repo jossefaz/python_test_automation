@@ -151,7 +151,8 @@ def test_complete_todo(mocked_get_todo):
                                              **{"status_code": 200, "json.return_value": {"id": 1, 'completed': False}})
     assert complete_todo() == False
 ```
-
+The advantage of using the `moc.Mock` class from the `unittest` module over the `monkeypatch` fixture, is the access to a bunch of useful method to assert that the **patched** function was called a number of time.
+For example :
 
 
 
@@ -166,5 +167,17 @@ In order to avoid this effect, we should apply two principles :
 In our example, the **request is NOT a part** of the behaviour (even if it looks like a part of it because it will define the return code). The behaviour under test is only the return statement of the login route.
 
 
+```python
 
+from unittest import mock
+from ..app.main import complete_todo
 
+# We first patch the get_todo_from_rest 
+@mock.patch("_6_mocking.app.main.get_todo_from_rest")
+def test_complete_todo_called_once(mocked_get_todo):
+    mocked_get_todo.return_value = mock.Mock(name="request_response",
+                                             **{"status_code": 200, "json.return_value": {"id": 1, 'completed': False}})
+    complete_todo()
+    mocked_get_todo.assert_called_once()
+```
+All the `assert_called` method could be found [HERE](https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock.assert_called)
