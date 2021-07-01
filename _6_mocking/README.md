@@ -108,6 +108,52 @@ def test_check_credentials_2(monkeypatch, payload, expected_status_code):
 
 ```
 
+## More on Mock
+
+---
+
+The mock API of the `unittest` module has a lot of feature that could be use for example to mock nested function call and return values.
+Let's say that we need to mock a  REST API calling using the `requests` library. But our UUT needs to get back a Response object (Which can call the `json()` method on and return a valid json).
+
+```python
+import requests
+from requests import Response
+
+def get_todo_from_rest():
+    response = requests.get("https://jsonplaceholder.typicode.com/todos/1")
+    return response
+#Return {'userId': 1, 'id': 1, 'title': 'delectus aut autem', 'completed': False}
+
+def is_todo_completed(todo:Response):
+    parsed_todo = todo.json()
+    return parsed_todo["completed"]
+
+def complete_todo():
+    todo = get_todo_from_rest()
+    if is_todo_completed(todo) : 
+        return True
+    return False    
+
+```
+We want to test the `complete_todo` method. For that we need to mock the  `get_todo_from_rest` to avoid the API call and to ensure that we will get back an object with a callable `json()` method.
+
+```python
+from unittest import mock
+from ..app.main import complete_todo
+
+# We first patch the get_todo_from_rest 
+@mock.patch("_6_mocking.app.main.get_todo_from_rest")
+def test_complete_todo(mocked_get_todo):
+    # We use the Mock class to mock a response (a mock object could be used both as a function or to return a value)
+    # From the docs : Mocks can also be called with arbitrary keyword arguments. These will be used to set attributes on the mock after it is created. See the configure_mock() method for details.
+    # We use this ability by calling a dictionnary and immediatly destructure it (we could call status_code=200 but here we need the json to be a mock too. And since we cannot use '.' as a kwarg we use a dictionnary here
+    mocked_get_todo.return_value = mock.Mock(name="request_response",
+                                             **{"status_code": 200, "json.return_value": {"id": 1, 'completed': False}})
+    assert complete_todo() == False
+```
+
+
+
 
 ## The Mocking trap : making the test not testing anything !
 
